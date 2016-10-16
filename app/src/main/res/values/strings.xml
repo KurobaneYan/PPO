@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PPO</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="hello_blank_fragment">黒猫</string>
+    <string name="enter_task_name">Enter Task name</string>
+    <string name="button_add_task">Add task</string>
+    <string name="finish_task">Finished!</string>
+    <string name="item_task">Item_Task</string>
+</resources>
