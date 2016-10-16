@@ -2,7 +2,7 @@ package com.kurobane.yan.ppo;
 
 import java.util.Date;
 
-public class Task {
+class Task {
     private int id;
     private boolean IsImportant;
     private boolean isDaily;
@@ -10,6 +10,15 @@ public class Task {
     private String name;
     public Task() {
 
+    }
+
+    Task(String name) {
+        setName(name);
+    }
+
+    public Task(String name, Date deadline) {
+        setName(name);
+        setDeadline(deadline);
     }
 
     public boolean isImportant() {
@@ -32,7 +41,7 @@ public class Task {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    private void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 

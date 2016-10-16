@@ -2,10 +2,14 @@ package com.kurobane.yan.ppo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class TasksFragment extends Fragment {
@@ -31,8 +35,13 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.tasks_list);
-        textView.setText("Tasks list will be here");
+        ArrayList<Task> tasks = new ArrayList<>();
+        final TasksAdapter tasksAdapter = new TasksAdapter(getContext(), tasks);
+        tasks.add(new Task("First task"));
+        ListView listView = (ListView) rootView.findViewById(R.id.tasks_list);
+        if (listView != null) {
+            listView.setAdapter(tasksAdapter);
+        }
         return rootView;
     }
 
