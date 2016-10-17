@@ -6,9 +6,8 @@ class Task {
     private int id;
     private boolean IsImportant;
     private boolean isDaily;
-    private Date deadline;
     private String name;
-    public Task() {
+    Task() {
 
     }
 
@@ -16,33 +15,20 @@ class Task {
         setName(name);
     }
 
-    public Task(String name, Date deadline) {
-        setName(name);
-        setDeadline(deadline);
-    }
-
-    public boolean isImportant() {
+    boolean isImportant() {
         return IsImportant;
     }
 
-    public void setImportant(boolean important) {
+    void setImportant(boolean important) {
         IsImportant = important;
     }
 
-    public boolean isDaily() {
+    boolean isDaily() {
         return isDaily;
     }
 
-    public void setDaily(boolean daily) {
+    void setDaily(boolean daily) {
         isDaily = daily;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    private void setDeadline(Date deadline) {
-        this.deadline = deadline;
     }
 
     public String getName() {
