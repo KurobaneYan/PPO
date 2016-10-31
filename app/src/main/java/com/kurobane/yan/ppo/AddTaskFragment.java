@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 
 public class AddTaskFragment extends Fragment {
-
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public AddTaskFragment() {

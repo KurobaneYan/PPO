@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    public static DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(1);
 
+        dbHelper = DBHelper.getInstance(getApplicationContext());
+
+
     }
 
     @Override
@@ -46,13 +53,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-
+        return super.onOptionsItemSelected(item);
     }
 
     public void addTask(View view) {
+        EditText taskName = (EditText) findViewById(R.id.task_name);
+        if (!taskName.getText().toString().equals("")) {
+            CheckBox isImportant = (CheckBox) findViewById(R.id.is_important);
+            CheckBox isDaily = (CheckBox) findViewById(R.id.is_daily);
+
+            Task task = new Task();
+            task.setName(taskName.getText().toString());
+            task.setImportant(isImportant.isChecked());
+            task.setDaily(isDaily.isChecked());
+            dbHelper.addTask(task);
+        }
+
+        // send notification to arrayadapter
+
         Log.d("Buttons", "Add task pressed");
     }
 

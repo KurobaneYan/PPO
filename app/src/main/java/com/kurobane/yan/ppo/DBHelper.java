@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -28,7 +29,7 @@ class DBHelper extends SQLiteOpenHelper {
         super(applicationContext, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static DBHelper getInstance(Context applicationContext) {
+    static DBHelper getInstance(Context applicationContext) {
         if (instance == null) {
             instance = new DBHelper(applicationContext);
         }
@@ -38,10 +39,10 @@ class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TASKS_TABLE = "CREATE TABLE " + TASKS_TABLE_NAME + " ( " +
-                TASK_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TASK_NAME + "TEXT, " +
-                TASK_IS_DAILY + "INTEGER, " +
-                TASK_IS_IMPORTANT + "INTEGER )";
+                TASK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                TASK_NAME + " TEXT, " +
+                TASK_IS_DAILY + " INTEGER, " +
+                TASK_IS_IMPORTANT + " INTEGER )";
         db.execSQL(CREATE_TASKS_TABLE);
     }
 
@@ -50,11 +51,10 @@ class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TASKS_TABLE_NAME);
     }
 
-    public void addTask(Task task) {
+    void addTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TASK_ID, task.getName());
         values.put(TASK_NAME, task.getName());
         values.put(TASK_IS_DAILY, task.isDaily() ? 1 : 0);
         values.put(TASK_IS_IMPORTANT, task.isImportant() ? 1 : 0);
@@ -110,7 +110,7 @@ class DBHelper extends SQLiteOpenHelper {
         return i;
     }
 
-    public void deleteTask(Task task) {
+    void deleteTask(Task task) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TASKS_TABLE_NAME,
@@ -120,7 +120,7 @@ class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Task> getAllTasks() {
+    ArrayList<Task> getAllTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
 
         String query = "SELECT * FROM " + TASKS_TABLE_NAME;
@@ -134,7 +134,10 @@ class DBHelper extends SQLiteOpenHelper {
                 task.setId(cursor.getInt(0));
                 task.setDaily(cursor.getInt(2) != 0);
                 task.setImportant(cursor.getInt(3) != 0);
+                tasks.add(task);
             } while (cursor.moveToNext());
+        } else {
+            Log.d("DB error", "Can't move cursor to first");
         }
 
         cursor.close();

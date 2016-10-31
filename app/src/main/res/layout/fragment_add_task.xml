@@ -19,7 +19,20 @@
         android:id="@+id/task_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:inputType="text"
+        android:hint="@string/task_name_edittext" />
+
+    <CheckBox
+        android:id="@+id/is_important"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/is_important"/>
+
+    <CheckBox
+        android:id="@+id/is_daily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/is_daily"/>
 
     <Button
         android:onClick="addTask"

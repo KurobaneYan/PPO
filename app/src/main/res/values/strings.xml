@@ -8,4 +8,7 @@
     <string name="button_add_task">Add task</string>
     <string name="finish_task">Finished!</string>
     <string name="item_task">Item_Task</string>
+    <string name="is_important">Is important?</string>
+    <string name="task_name_edittext">Task Name</string>
+    <string name="is_daily">Is Daily?</string>
 </resources>
