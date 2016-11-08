@@ -1,10 +1,8 @@
 package com.kurobane.yan.ppo;
 
-import java.util.Date;
-
 class Task {
     private int id;
-    private boolean IsImportant;
+    private boolean isImportant;
     private boolean isDaily;
     private String name;
     Task() {
@@ -16,11 +14,11 @@ class Task {
     }
 
     boolean isImportant() {
-        return IsImportant;
+        return isImportant;
     }
 
     void setImportant(boolean important) {
-        IsImportant = important;
+        isImportant = important;
     }
 
     boolean isDaily() {
@@ -45,5 +43,10 @@ class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "id " + id + " name " + name + " D: " + isDaily + " I: " + isImportant;
     }
 }

@@ -11,4 +11,5 @@
     <string name="is_important">Is important?</string>
     <string name="task_name_edittext">Task Name</string>
     <string name="is_daily">Is Daily?</string>
+    <string name="tasks">Tasks:</string>
 </resources>

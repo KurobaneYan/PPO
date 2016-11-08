@@ -12,12 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public static DBHelper dbHelper;
+    private TasksFragment tasksFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1);
 
         dbHelper = DBHelper.getInstance(getApplicationContext());
-
-
     }
 
     @Override
@@ -56,6 +52,27 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0) {
+                tasksFragment = TasksFragment.newInstance(position);
+                return tasksFragment;
+            }
+            return AddTaskFragment.newInstance(position);
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
     public void addTask(View view) {
         EditText taskName = (EditText) findViewById(R.id.task_name);
         if (!taskName.getText().toString().equals("")) {
@@ -67,37 +84,9 @@ public class MainActivity extends AppCompatActivity {
             task.setImportant(isImportant.isChecked());
             task.setDaily(isDaily.isChecked());
             dbHelper.addTask(task);
+            Log.d("Buttons", "Add task " + task.toString());
         }
 
-        // send notification to arrayadapter
-
-        Log.d("Buttons", "Add task pressed");
-    }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            if (position == 0) {
-                return TasksFragment.newInstance(position);
-            }
-            if (position == 1) {
-                return TodayFragment.newInstance(position);
-            }
-            if (position == 2) {
-                return AddTaskFragment.newInstance(position);
-            }
-            return AddTaskFragment.newInstance(position);
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
+        tasksFragment.updateTaskList();
     }
 }
